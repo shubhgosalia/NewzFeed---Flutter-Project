@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import 'Screens/Login/LoginPage.dart';
-import 'constants.dart';
+import 'package:flutter_application_1/pages/login_page.dart';
+import 'package:flutter_application_1/pages/signup_page.dart';
+import 'package:flutter_application_1/utils/routes.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Auth',
-      theme: ThemeData(
-        primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      home: LoginPage(),
-    );
+        theme: ThemeData(
+            primarySwatch: Colors.lightBlue,
+            fontFamily: GoogleFonts.lato().fontFamily),
+        debugShowCheckedModeBanner: false,
+        //we can change the initial route anytime
+        initialRoute: "/signup",
+        routes: {
+          MyRoutes.signupRoute: (context) => SignupPage(),
+          MyRoutes.loginRoute: (context) =>
+              LoginPage(), //HomePage is the class name that we are calling
+        });
   }
 }
