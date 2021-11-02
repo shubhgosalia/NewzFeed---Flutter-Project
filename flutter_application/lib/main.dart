@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/pages/signup_page.dart';
+import 'package:flutter_application_1/pages/start_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,11 +18,11 @@ class MyApp extends StatelessWidget {
             fontFamily: GoogleFonts.lato().fontFamily),
         debugShowCheckedModeBanner: false,
         //we can change the initial route anytime
-        initialRoute: "/signup",
+        initialRoute: "/start",
         routes: {
           MyRoutes.signupRoute: (context) => SignupPage(),
-          MyRoutes.loginRoute: (context) =>
-              LoginPage(), //HomePage is the class name that we are calling
+          MyRoutes.loginRoute: (context) => LoginPage(),
+          MyRoutes.startRoute: (context) => StartPage(),
         });
   }
 }

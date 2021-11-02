@@ -8,9 +8,13 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final _formKey = GlobalKey<FormState>();
+
   moveToHome(BuildContext context) {
-    setState(() {});
-    Navigator.pushNamed(context, MyRoutes.loginRoute);
+    if (_formKey.currentState!.validate()) {
+      setState(() {});
+      Navigator.pushNamed(context, MyRoutes.loginRoute);
+    }
   }
 
   @override
@@ -20,8 +24,12 @@ class _SignupPageState extends State<SignupPage> {
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(130.0), // here the desired height
           child: AppBar(
-            centerTitle: true,
-            //title: Image.asset("assets/images/logo.png", fit: BoxFit.cover),
+            title: Container(
+              child: Align(
+                alignment: Alignment(-0.25, 1),
+                //add image here,
+              ),
+            ),
             backgroundColor: Color(0xff1C2574),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
@@ -31,6 +39,7 @@ class _SignupPageState extends State<SignupPage> {
           )),
       body: SingleChildScrollView(
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               SizedBox(
@@ -141,7 +150,6 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   Wrap(
                     spacing: 50, // set spacing here
-
                     children: [
                       Image.asset('assets/images/google_icon.png',
                           width: 60, height: 60),
