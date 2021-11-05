@@ -27,7 +27,8 @@ class _SignupPageState extends State<SignupPage> {
             title: Container(
               child: Align(
                 alignment: Alignment(-0.25, 1),
-                //add image here,
+                child: Image.asset("assets/images/newfeed_title.png",
+                    fit: BoxFit.cover),
               ),
             ),
             backgroundColor: Color(0xff1C2574),
