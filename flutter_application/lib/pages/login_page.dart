@@ -129,6 +129,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+                  //ElevatedButton(
+                  //child: Text(""),
+                  //style: TextButton.styleFrom(minimumSize: Size(350, 60)),
+                  //onPressed: () {
+                  //this navigates to the home page(as it is directed to the home route)
+                  //Navigator.pushNamed(context, MyRoutes.homeRoute);
+                  //},
+                  //),
                   SizedBox(
                     height: 25,
                   ),
