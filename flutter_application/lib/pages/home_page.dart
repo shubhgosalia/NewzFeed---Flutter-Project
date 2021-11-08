@@ -83,9 +83,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/newfeed_title.png',
+              'assets/images/newzfeed_logoooo_new.png',
               fit: BoxFit.contain,
-              height: 32,
+              height: 42,
             ),
             Container(padding: const EdgeInsets.all(8.0), child: Text(''))
           ],
