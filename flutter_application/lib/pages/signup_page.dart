@@ -23,12 +23,18 @@ class _SignupPageState extends State<SignupPage> {
       backgroundColor: Colors.white,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(130.0), // here the desired height
+
           child: AppBar(
+            toolbarHeight: 120,
             title: Container(
               child: Align(
-                alignment: Alignment(-0.25, 1),
-                child: Image.asset("assets/images/newfeed_title.png",
-                    fit: BoxFit.cover),
+                alignment: Alignment(-0.16, 1),
+                child: Image.asset(
+                  "assets/images/newzfeed_logoooo_new.png",
+                  fit: BoxFit.fill,
+                  height: 80,
+                  width: 80,
+                ),
               ),
             ),
             backgroundColor: Color(0xff1C2574),
