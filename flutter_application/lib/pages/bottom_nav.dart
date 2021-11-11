@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: "Category",
           ),
           TabData(iconData: Icons.list, title: "List"),
-          TabData(iconData: Icons.account_box, title: "Account")
+          TabData(iconData: Icons.account_box, title: "Profile")
         ],
         initialSelection: 0,
         key: bottomNavigationKey,

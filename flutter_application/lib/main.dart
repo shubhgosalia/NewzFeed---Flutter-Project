@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.homeRoute: (context) => HomePage(),
         MyRoutes.homeRoute: (context) => MyHomePage(),
         MyRoutes.profileRoute: (context) => ProfilePage(),
+        MyRoutes.profileRoute: (context) => MyHomePage(),
       },
       //home: MyHomePage(),
     );

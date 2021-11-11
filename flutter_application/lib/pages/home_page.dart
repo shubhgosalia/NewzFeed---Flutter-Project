@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/bottom_nav.dart';
 import 'package:flutter_application_1/pages/lightdark.dart';
+import 'package:flutter_application_1/pages/profile_page.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -114,9 +116,10 @@ class _HomePageState extends State<HomePage> {
               'Newz Feed',
               style: TextStyle(fontSize: 22.0),
             ))),
-            const ListTile(
+            new ListTile(
               title: const Text('Home'),
               selected: true,
+              onTap: () {},
             ),
             const Divider(),
             new ListTile(
@@ -134,9 +137,11 @@ class _HomePageState extends State<HomePage> {
             const Divider(),
             new ListTile(
               title: new Text("Settings"),
+              onTap: () {},
             ),
             new ListTile(
               title: new Text("Bookmark"),
+              onTap: () {},
             ),
           ],
         ),

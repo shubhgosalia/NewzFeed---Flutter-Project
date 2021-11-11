@@ -42,16 +42,6 @@ class MapScreenState extends State<ProfilePage>
                         child: new Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            new IconButton(
-                              icon: new Icon(
-                                Icons.arrow_back,
-                                size: 22.0,
-                              ),
-                              highlightColor: Colors.pink,
-                              onPressed: () {
-                                HomePage();
-                              },
-                            ),
                             Padding(
                               padding: EdgeInsets.only(left: 25.0),
                               child: new Text('PROFILE',
