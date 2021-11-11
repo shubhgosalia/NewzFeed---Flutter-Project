@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/lightdark.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_application_1/pages/NewsCard.dart';
@@ -6,7 +8,7 @@ import 'package:flutter_application_1/pages/NewsCard.dart';
 final String API_KEY = "62413e0055bb42c79f8dc33502e339d1";
 final String end_point = "https://newsapi.org/v2/";
 String apiURL() {
-  String url = end_point + "top-headlines?sources=the-hindu&apiKey=" + API_KEY;
+  String url = end_point + "top-headlines?sources=techcrunch&apiKey=" + API_KEY;
   return url;
 }
 
@@ -22,11 +24,6 @@ class _HomePageState extends State<HomePage> {
   var resBody;
   bool loading = true;
   Brightness bright = Brightness.light;
-  _toggle(bright) {
-    setState(() {
-      this.bright = bright;
-    });
-  }
 
   getUserInfo() async {
     var res = await http
@@ -90,6 +87,18 @@ class _HomePageState extends State<HomePage> {
             Container(padding: const EdgeInsets.all(8.0), child: Text(''))
           ],
         ),
+        actions: [
+          IconButton(
+              icon: Icon(MyTheme.themeNotifier.value == ThemeMode.light
+                  ? Icons.dark_mode
+                  : Icons.light_mode),
+              onPressed: () {
+                MyTheme.themeNotifier.value =
+                    MyTheme.themeNotifier.value == ThemeMode.light
+                        ? ThemeMode.dark
+                        : ThemeMode.light;
+              })
+        ],
         //title: new Text("Newz Feed"),
       ),
       body: new Center(
@@ -112,28 +121,14 @@ class _HomePageState extends State<HomePage> {
             const Divider(),
             new ListTile(
               title: const Text('Light'),
-              trailing: new Radio(
-                value: "Light",
-                groupValue: "Brighness",
-                onChanged: null,
-              ),
               onTap: () {
-                print("light");
-                _toggle(Brightness.light);
-                print(bright);
+                Get.changeTheme(ThemeData.light());
               },
             ),
             new ListTile(
               title: const Text('Dark'),
-              trailing: new Radio(
-                value: "Dark",
-                groupValue: "Brighness",
-                onChanged: null,
-              ),
               onTap: () {
-                print("dark");
-                _toggle(Brightness.dark);
-                print(bright);
+                Get.changeTheme(ThemeData.dark());
               },
             ),
             const Divider(),
