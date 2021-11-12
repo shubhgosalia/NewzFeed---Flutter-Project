@@ -31,6 +31,10 @@ dependencies:
   google_fonts: ^2.1.0
   url_launcher: ^6.0.10
   fancy_bottom_navigation: ^0.3.3
+  adaptive_theme: ^2.3.0
+  shared_preferences_web: ^2.0.2
+  provider: ^6.0.1
+  get: ^4.3.8
 
 dev_dependencies:
   flutter_test:

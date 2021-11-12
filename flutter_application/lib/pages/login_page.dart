@@ -24,8 +24,13 @@ class _LoginPageState extends State<LoginPage> {
           preferredSize: Size.fromHeight(130.0), // here the desired height
           child: AppBar(
             centerTitle: true,
-            title: Image.asset("assets/images/newfeed_title.png",
-                fit: BoxFit.cover),
+            toolbarHeight: 120,
+            title: Image.asset(
+              "assets/images/newzfeed_logoooo_new.png",
+              fit: BoxFit.fill,
+              height: 80,
+              width: 80,
+            ),
             backgroundColor: Color(0xff1C2574),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(

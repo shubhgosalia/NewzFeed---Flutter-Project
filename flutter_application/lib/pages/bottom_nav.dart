@@ -2,9 +2,13 @@ import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
+import 'package:flutter_application_1/pages/profile_page.dart';
 import 'package:flutter_application_1/pages/signup_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+//Bottom nav bar
+//Only Home and account works for now will add category and list in this week
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -40,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: "Category",
           ),
           TabData(iconData: Icons.list, title: "List"),
-          TabData(iconData: Icons.account_box, title: "Account")
+          TabData(iconData: Icons.account_box, title: "Profile")
         ],
         initialSelection: 0,
         key: bottomNavigationKey,
@@ -65,12 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         return HomePage();
       case 2:
-
+        return HomePage();
       case 3:
-        return HomePage();
+        return ProfilePage();
 
-      case 4:
-        return HomePage();
       default:
         return Column(
           mainAxisSize: MainAxisSize.min,
