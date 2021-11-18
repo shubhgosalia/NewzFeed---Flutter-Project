@@ -66,7 +66,8 @@ class MapScreenState extends State<ProfilePage>
                                 decoration: new BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: new DecorationImage(
-                                    image: new ExactAssetImage('images/as.png'),
+                                    image: new ExactAssetImage(
+                                        'assets/images/as.png'),
                                     fit: BoxFit.cover,
                                   ),
                                 )),
@@ -139,7 +140,7 @@ class MapScreenState extends State<ProfilePage>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Name',
+                                    'Username',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
@@ -157,7 +158,7 @@ class MapScreenState extends State<ProfilePage>
                               new Flexible(
                                 child: new TextField(
                                   decoration: const InputDecoration(
-                                    hintText: "Enter Your Name",
+                                    hintText: "Enter Username",
                                   ),
                                   enabled: !_status,
                                   autofocus: !_status,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:circular_placeholder/circular_placeholder.dart';
 
-class signin1 extends StatelessWidget {
+class category_page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

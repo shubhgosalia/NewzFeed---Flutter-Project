@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,12 +9,36 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  moveToHome(BuildContext context) {
-    setState(() {});
-    Navigator.pushNamed(context, MyRoutes.homeRoute);
-    //  setState(() {
-    //  changeButton = false;
-    // });
+  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  bool circular = false;
+
+  moveToHome(BuildContext context) async {
+    setState(() {
+      circular = true;
+    });
+
+    try {
+      firebase_auth.UserCredential userCredential =
+          await firebaseAuth.signInWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text);
+      print(userCredential.user?.email);
+      setState(() {
+        circular = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Logged In successfully!"),
+        duration: Duration(seconds: 2),
+      ));
+      Navigator.pushNamed(context, MyRoutes.homeRoute);
+    } catch (e) {
+      final snackbar = SnackBar(content: Text(e.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      setState(() {
+        circular = false;
+      });
+    }
   }
 
   @override
@@ -28,8 +53,8 @@ class _LoginPageState extends State<LoginPage> {
             title: Image.asset(
               "assets/images/newzfeed_logoooo_new.png",
               fit: BoxFit.fill,
-              height: 80,
-              width: 80,
+              height: 90,
+              width: 90,
             ),
             backgroundColor: Color(0xff1C2574),
             shape: RoundedRectangleBorder(
@@ -61,9 +86,10 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: _emailController,
                     decoration: InputDecoration(
-                      hintText: "Enter username or email",
-                      labelText: "Username or Email",
+                      hintText: "Enter your email",
+                      labelText: "Email",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
@@ -81,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Enter password",
@@ -124,13 +151,18 @@ class _LoginPageState extends State<LoginPage> {
                         width: 350,
                         height: 60,
                         alignment: Alignment.center,
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
+                        child: circular
+                            ? CircularProgressIndicator(
+                                valueColor: new AlwaysStoppedAnimation<Color>(
+                                    Colors.white),
+                              )
+                            : Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
                       ),
                     ),
                   ),

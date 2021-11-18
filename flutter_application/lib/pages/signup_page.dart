@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class SignupPage extends StatefulWidget {
   @override
@@ -8,12 +10,40 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  bool circular = false;
+
   final _formKey = GlobalKey<FormState>();
 
-  moveToHome(BuildContext context) {
+  moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      setState(() {});
-      Navigator.pushNamed(context, MyRoutes.loginRoute);
+      setState(() {
+        circular = true;
+      });
+      try {
+        firebase_auth.UserCredential userCredential =
+            await firebaseAuth.createUserWithEmailAndPassword(
+                email: _emailController.text,
+                password: _passwordController.text);
+        print(userCredential.user?.email);
+        setState(() {
+          circular = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Registered successfully!"),
+          duration: Duration(seconds: 2),
+        ));
+
+        Navigator.pushNamed(context, MyRoutes.loginRoute);
+      } catch (e) {
+        final snackbar = SnackBar(content: Text(e.toString()));
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        setState(() {
+          circular = false;
+        });
+      }
     }
   }
 
@@ -23,7 +53,6 @@ class _SignupPageState extends State<SignupPage> {
       backgroundColor: Colors.white,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(130.0), // here the desired height
-
           child: AppBar(
             toolbarHeight: 120,
             title: Container(
@@ -32,8 +61,8 @@ class _SignupPageState extends State<SignupPage> {
                 child: Image.asset(
                   "assets/images/newzfeed_logoooo_new.png",
                   fit: BoxFit.fill,
-                  height: 80,
-                  width: 80,
+                  height: 90,
+                  width: 90,
                 ),
               ),
             ),
@@ -65,6 +94,7 @@ class _SignupPageState extends State<SignupPage> {
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                 child: Column(children: [
                   TextFormField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       hintText: "Enter email",
                       labelText: "Email",
@@ -110,6 +140,7 @@ class _SignupPageState extends State<SignupPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Enter password",
@@ -142,13 +173,18 @@ class _SignupPageState extends State<SignupPage> {
                         width: 350,
                         height: 60,
                         alignment: Alignment.center,
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
+                        child: circular
+                            ? CircularProgressIndicator(
+                                valueColor: new AlwaysStoppedAnimation<Color>(
+                                    Colors.white),
+                              )
+                            : Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
                       ),
                     ),
                   ),
