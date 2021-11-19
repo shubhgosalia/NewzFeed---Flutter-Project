@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Service/Auth_Service.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -14,6 +17,7 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool circular = false;
+  AuthClass authClass = AuthClass();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -191,15 +195,49 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(
                     height: 25,
                   ),
-                  Wrap(
-                    spacing: 50, // set spacing here
-                    children: [
-                      Image.asset('assets/images/google_icon.png',
-                          width: 60, height: 60),
-                      Image.asset('assets/images/google_icon.png',
-                          width: 60, height: 60),
-                    ],
+
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                      onPrimary: Colors.white,
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    icon: FaIcon(FontAwesomeIcons.google, color: Colors.white),
+                    label: Text(
+                      "Continue with Google",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () async {
+                      await authClass.googleSignIn(context);
+                      // final provider = Provider.of<GoogleSignInProvider>(
+                      // context,
+                      //  listen: false);
+                      // provider.googleLogin();
+                    },
                   ),
+                  // Material(
+                  //color: Colors.red,
+                  //borderRadius: BorderRadius.circular(8),
+                  // child: InkWell(
+                  //  splashColor: Colors.grey,
+                  //  onTap: () async {
+                  //    await authClass.googleSignIn(context);
+                  //  },
+                  // child: Container(
+                  //   width: 350,
+                  //  height: 60,
+                  // alignment: Alignment.center,
+                  // child: Text(
+                  //  "Google Sign In",
+                  // style: TextStyle(
+                  //    color: Colors.white,
+                  //    fontWeight: FontWeight.bold,
+                  //   fontSize: 20),
+                  //  ),
+                  // ),
+                  // ),
+                  //  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -261,8 +299,8 @@ class _SignupPageState extends State<SignupPage> {
 }
 
  //ElevatedButton(
-                  // child: Text("Login"),
-                  // style: TextButton.styleFrom(minimumSize: Size(150, 40)),
+                 // child: Text("Login"),
+                 //  style: TextButton.styleFrom(minimumSize: Size(150, 40)),
                   // onPressed: () {
                   //this navigates to the home page(as it is directed to the home route)
                   //   Navigator.pushNamed(context, MyRoutes.homeRoute);

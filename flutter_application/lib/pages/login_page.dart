@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Service/Auth_Service.dart';
 import 'package:flutter_application_1/utils/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool circular = false;
+  AuthClass authClass = AuthClass();
 
   moveToHome(BuildContext context) async {
     setState(() {
@@ -177,16 +180,24 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 25,
                   ),
-                  Wrap(
-                    spacing: 50, // set spacing here
 
-                    children: [
-                      Image.asset('assets/images/google_icon.png',
-                          width: 60, height: 60),
-                      Image.asset('assets/images/google_icon.png',
-                          width: 60, height: 60),
-                    ],
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                      onPrimary: Colors.white,
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    icon: FaIcon(FontAwesomeIcons.google, color: Colors.white),
+                    label: Text(
+                      "Continue with Google",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () async {
+                      await authClass.googleSignIn(context);
+                    },
                   ),
+
                   SizedBox(
                     height: 30,
                   ),
@@ -228,7 +239,7 @@ class _LoginPageState extends State<LoginPage> {
                         //  ),
                         ),
                     width: 420,
-                    height: 125,
+                    height: 135,
                     decoration: BoxDecoration(
                         color: Colors.lightBlue,
                         borderRadius: BorderRadius.only(
