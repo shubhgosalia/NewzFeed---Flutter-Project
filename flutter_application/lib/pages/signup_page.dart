@@ -56,17 +56,17 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(130.0), // here the desired height
+          preferredSize: Size.fromHeight(91.0), // here the desired height
           child: AppBar(
-            toolbarHeight: 120,
+            toolbarHeight: 81,
             title: Container(
               child: Align(
                 alignment: Alignment(-0.16, 1),
                 child: Image.asset(
                   "assets/images/newzfeed_logoooo_new.png",
                   fit: BoxFit.fill,
-                  height: 90,
-                  width: 90,
+                  height: 75,
+                  width: 75,
                 ),
               ),
             ),
@@ -278,7 +278,7 @@ class _SignupPageState extends State<SignupPage> {
                         //  ),
                         ),
                     width: 420,
-                    height: 135,
+                    height: 120,
                     decoration: BoxDecoration(
                         color: Colors.lightBlue,
                         borderRadius: BorderRadius.only(

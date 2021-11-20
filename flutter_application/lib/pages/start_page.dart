@@ -15,7 +15,7 @@ class StartPage extends StatelessWidget {
             children: <Widget>[
           Container(
             width: 420,
-            height: 230,
+            height: 212.95,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(60.0),
@@ -28,7 +28,7 @@ class StartPage extends StatelessWidget {
           ),
           Container(
             width: 420,
-            height: 360.5,
+            height: 355.1,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/news_logo_cover.png'),
@@ -38,7 +38,7 @@ class StartPage extends StatelessWidget {
           ),
           Container(
             width: 420,
-            height: 230,
+            height: 212.95,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(60.0),
