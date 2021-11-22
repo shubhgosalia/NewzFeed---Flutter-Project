@@ -66,10 +66,8 @@ class signin1 extends StatelessWidget {
                           // ),
                         ),
                         // ),
-                        child: Image(
-                          image: AssetImage(
-                            'assets/images/business.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/business.png',
                         ),
                       ),
                     ),
@@ -99,10 +97,8 @@ class signin1 extends StatelessWidget {
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: Image(
-                          image: AssetImage(
-                            'assets/images/technology.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/technology.png',
                         ),
                       ),
                     ),
@@ -132,10 +128,8 @@ class signin1 extends StatelessWidget {
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: Image(
-                          image: AssetImage(
-                            'assets\images\sports.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/sports.png',
                         ),
                       ),
                     ),
@@ -237,10 +231,8 @@ class signin1 extends StatelessWidget {
                           // ),
                         ),
                         // ),
-                        child: Image(
-                          image: AssetImage(
-                            'assets\images\health_&_medicine.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/health_&_medicine.png',
                         ),
                       ),
                     ),
@@ -270,10 +262,8 @@ class signin1 extends StatelessWidget {
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: Image(
-                          image: AssetImage(
-                            'assets\images\Entertainment.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/Entertainment.png',
                         ),
                       ),
                     ),
@@ -303,10 +293,8 @@ class signin1 extends StatelessWidget {
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: Image(
-                          image: AssetImage(
-                            'assets\images\General.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/General.png',
                         ),
                       ),
                     ),
@@ -408,10 +396,8 @@ class signin1 extends StatelessWidget {
                           // ),
                         ),
                         // ),
-                        child: Image(
-                          image: AssetImage(
-                            'assets\images\Govt._&_Politics.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/Govt._&_Politics.png',
                         ),
                       ),
                     ),
@@ -441,10 +427,8 @@ class signin1 extends StatelessWidget {
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: Image(
-                          image: AssetImage(
-                            'assets\images\lifestyle.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/lifestyle.png',
                         ),
                       ),
                     ),
@@ -474,10 +458,8 @@ class signin1 extends StatelessWidget {
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: Image(
-                          image: AssetImage(
-                            'assets\images\Science.png',
-                          ),
+                        child: Image.asset(
+                          'assets/images/Science.png',
                         ),
                       ),
                     ),

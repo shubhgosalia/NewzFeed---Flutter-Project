@@ -1,6 +1,7 @@
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/category_page1.dart';
+import 'package:flutter_application_1/pages/categorypage2.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/pages/profile_page.dart';
@@ -68,9 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 0:
         return HomePage();
       case 1:
-        return HomePage();
+        return category_page1();
       case 2:
-        return HomePage();
+        return signin1();
       case 3:
         return ProfilePage();
 
@@ -78,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text("This is the Account page"),
+            Text("This is Profile page"),
           ],
         );
     }

@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/bottom_nav.dart';
+import 'package:flutter_application_1/pages/category_page1.dart';
+import 'package:flutter_application_1/pages/categorypage2.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/pages/profile_page.dart';
@@ -40,6 +42,10 @@ class _MyAppState extends State<MyApp> {
         MyRoutes.homeRoute: (context) => MyHomePage(),
         MyRoutes.profileRoute: (context) => ProfilePage(),
         MyRoutes.profileRoute: (context) => MyHomePage(),
+        MyRoutes.catRoute1: (context) => category_page1(),
+        MyRoutes.catRoute1: (context) => MyHomePage(),
+        MyRoutes.catRoute2: (context) => signin1(),
+        MyRoutes.catRoute2: (context) => MyHomePage(),
       },
       //home: MyHomePage(),
     );
