@@ -8,12 +8,12 @@ import 'list_article.dart';
 
 Future<List<Source>> fetchNewsSource() async {
   final response = await http.get(Uri.parse(
-      'http://newsapi.org/v2/sources?apiKey=bbd5df3e11f24a64bf61f5bf853be33c'));
+      'http://newsapi.org/v2/sources?apiKey=62413e0055bb42c79f8dc33502e339d1'));
   if (response.statusCode == 200) {
     List sources = json.decode(response.body)['sources'];
     return sources.map((source) => new Source.fromJson(source)).toList();
   } else {
-    throw Exception('failed to load source list');
+    throw Exception('FAILED TO LOAD');
   }
 }
 
@@ -121,7 +121,7 @@ class SourceScreenState extends State<SourceScreen> {
                                               margin: const EdgeInsets.only(
                                                   top: 5.0, bottom: 5.0),
                                               child: Text(
-                                                'Category: ${sources.category}',
+                                                'CATEGORY: ${sources.category}',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 14.0,

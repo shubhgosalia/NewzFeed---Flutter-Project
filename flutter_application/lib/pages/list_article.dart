@@ -8,7 +8,7 @@ import 'package:flutter_application_1/pages/model.dart';
 
 Future<List<Articles>> fetchArticlesBySource(String source) async {
   final response = await http.get(Uri.parse(
-      'https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=bbd5df3e11f24a64bf61f5bf853be33c'));
+      'https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=62413e0055bb42c79f8dc33502e339d1'));
 
   if (response.statusCode == 200) {
     List articles = json.decode(response.body)['articles'];
@@ -139,7 +139,7 @@ class ArticleScreenState extends State<ArticleScreen> {
                                                   top: 10,
                                                   bottom: 10),
                                               child: Text(
-                                                'Published At: ${article.publishedAt}',
+                                                'PUBLISHED AT: ${article.publishedAt}',
                                                 style: TextStyle(
                                                     color: Colors.black12,
                                                     fontSize: 12.0,
@@ -168,10 +168,10 @@ class ArticleScreenState extends State<ArticleScreen> {
   }
 
   _launchUrl(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw {'couldnt able to launch ${url}'};
-    }
+    //if (await canLaunch(url)) {
+    await launch(url);
+    //} else {
+    //  throw {'UNABLE TO LAUNCH ${url}'};
+    //}
   }
 }
