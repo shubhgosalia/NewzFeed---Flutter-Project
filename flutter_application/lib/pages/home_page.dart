@@ -1,83 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/bottom_nav.dart';
-import 'package:flutter_application_1/pages/lightdark.dart';
-import 'package:flutter_application_1/pages/profile_page.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:flutter_application_1/pages/NewsCard.dart';
 
-final String API_KEY = "62413e0055bb42c79f8dc33502e339d1";
-final String end_point = "https://newsapi.org/v2/";
-String apiURL() {
-  String url = end_point + "top-headlines?sources=techcrunch&apiKey=" + API_KEY;
-  return url;
-}
+import 'package:flutter_application_1/pages/news.dart';
+import 'package:flutter_application_1/pages/article_model.dart';
+
+import 'Article.dart';
 
 class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
+
   @override
-  State<HomePage> createState() {
-    return new _HomePageState();
-  }
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<NewsCard> _news = <NewsCard>[];
-  var resBody;
-  bool loading = true;
-  Brightness bright = Brightness.light;
+  List<ArticleModel> articles = <ArticleModel>[];
+  bool _isLoading = true;
+  @override
+  void initState() {
+    super.initState();
 
-  getUserInfo() async {
-    var res = await http
-        .get(Uri.parse(apiURL()), headers: {"Accept": "application/json"});
-    resBody = json.decode(res.body);
-    if (resBody['status'] == 'ok') {
-      _news.clear();
-      print(resBody['articles']);
-      for (var data in resBody['articles']) {
-        print(data);
-        _news.add(new NewsCard(
-          title: data['title'],
-          author: data['author'],
-          description: data['description'],
-          name: data['source']['name'],
-          url: data['url'],
-          urlToImage: data['urlToImage'],
-        ));
-      }
-      setState(() {
-        loading = false;
-        print("Loaded Data");
-      });
-    } else {
-      print("Something Went Wrong" + resBody);
-    }
+    getNews();
   }
 
-  Widget _buildBody() {
-    if (loading) {
-      return new Center(
-        child: new CircularProgressIndicator(),
-      );
-    } else {
-      return new Column(
-        children: <Widget>[
-          new Flexible(
-              child: new ListView.builder(
-            padding: new EdgeInsets.all(8.0),
-            reverse: true,
-            itemBuilder: (_, int index) => _news[index],
-            itemCount: _news.length,
-          )),
-        ],
-      );
-    }
+  getNews() async {
+    News newsname = News();
+    await newsname.getNews();
+    articles = newsname.news;
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        elevation: 0.0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -86,72 +46,90 @@ class _HomePageState extends State<HomePage> {
               fit: BoxFit.contain,
               height: 42,
             ),
-            Container(padding: const EdgeInsets.all(8.0), child: Text(''))
-          ],
-        ),
-        actions: [
-          IconButton(
-              icon: Icon(MyTheme.themeNotifier.value == ThemeMode.light
-                  ? Icons.dark_mode
-                  : Icons.light_mode),
-              onPressed: () {
-                MyTheme.themeNotifier.value =
-                    MyTheme.themeNotifier.value == ThemeMode.light
-                        ? ThemeMode.dark
-                        : ThemeMode.light;
-              })
-        ],
-        //title: new Text("Newz Feed"),
-      ),
-      body: new Center(
-        child: _buildBody(),
-      ),
-      drawer: new Drawer(
-        child: new ListView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          children: <Widget>[
-            const DrawerHeader(
-                child: const Center(
-                    child: const Text(
-              'Newz Feed',
-              style: TextStyle(fontSize: 22.0),
-            ))),
-            new ListTile(
-              title: const Text('Home'),
-              selected: true,
-              onTap: () {},
-            ),
-            const Divider(),
-            new ListTile(
-              title: const Text('Light'),
-              onTap: () {
-                Get.changeTheme(ThemeData.light());
-              },
-            ),
-            new ListTile(
-              title: const Text('Dark'),
-              onTap: () {
-                Get.changeTheme(ThemeData.dark());
-              },
-            ),
-            const Divider(),
-            new ListTile(
-              title: new Text("Settings"),
-              onTap: () {},
-            ),
-            new ListTile(
-              title: new Text("Bookmark"),
-              onTap: () {},
-            ),
+            Container(padding: const EdgeInsets.all(20.0), child: Text(''))
           ],
         ),
       ),
+      body: _isLoading
+          ? Center(
+              child: Container(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  children: [
+                    //articles
+                    Container(
+                      padding: EdgeInsets.only(top: 20),
+                      child: ListView.builder(
+                          itemCount: articles.length,
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            return BlogItems(
+                              imageUrl: articles[index].urlToImage,
+                              title: articles[index].title,
+                              desc: articles[index].description,
+                              url: articles[index].url,
+                            );
+                          }),
+                    )
+                  ],
+                ),
+              ),
+            ),
     );
   }
+}
 
+class BlogItems extends StatelessWidget {
+  final String imageUrl, title, desc, url;
+  BlogItems(
+      {required this.imageUrl,
+      required this.title,
+      required this.desc,
+      required this.url});
   @override
-  void initState() {
-    getUserInfo();
-    super.initState();
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Article(articleUrl: url)));
+      },
+      child: Container(
+          margin: EdgeInsets.only(bottom: 20),
+          child: Column(
+            children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(18),
+                      topRight: Radius.circular(18)),
+                  child: Image.network(imageUrl)),
+              SizedBox(height: 5),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 5),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
+    );
   }
 }
