@@ -1,5 +1,6 @@
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Service/Auth_Service.dart';
 import 'package:flutter_application_1/pages/category_list.dart';
 import 'package:flutter_application_1/pages/category_page1.dart';
 import 'package:flutter_application_1/pages/categorypage2.dart';
@@ -22,6 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentPage = 0;
 
   GlobalKey bottomNavigationKey = GlobalKey();
+  AuthClass authClass = AuthClass();
 
   @override
   Widget build(BuildContext context) {

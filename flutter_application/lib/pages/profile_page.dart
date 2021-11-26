@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Dummy Data Editable
 //has to be called from DB
@@ -22,6 +23,10 @@ class MapScreenState extends State<ProfilePage>
   void initState() {
     super.initState();
   }
+
+  TextEditingController _mobController = TextEditingController();
+  TextEditingController _pinController = TextEditingController();
+  TextEditingController _stateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -229,6 +234,7 @@ class MapScreenState extends State<ProfilePage>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
+                                  controller: _mobController,
                                   decoration: const InputDecoration(
                                       hintText: "Enter Mobile Number"),
                                   enabled: !_status,
@@ -278,6 +284,7 @@ class MapScreenState extends State<ProfilePage>
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: new TextField(
+                                    controller: _pinController,
                                     decoration: const InputDecoration(
                                         hintText: "Enter Pin Code"),
                                     enabled: !_status,
@@ -287,6 +294,7 @@ class MapScreenState extends State<ProfilePage>
                               ),
                               Flexible(
                                 child: new TextField(
+                                  controller: _stateController,
                                   decoration: const InputDecoration(
                                       hintText: "Enter State"),
                                   enabled: !_status,
@@ -326,7 +334,17 @@ class MapScreenState extends State<ProfilePage>
               padding: EdgeInsets.only(right: 10.0),
               child: Container(
                   child: new RaisedButton(
-                child: new Text("Save"),
+                child: InkWell(
+                    onTap: () {
+                      FirebaseFirestore.instance
+                          .collection("User Profile")
+                          .add({
+                        "Mobile No.": _mobController.text,
+                        "Pincode:": _pinController.text,
+                        "State": _stateController.text
+                      });
+                    },
+                    child: new Text("Save")),
                 textColor: Colors.white,
                 color: Colors.blue,
                 onPressed: () {

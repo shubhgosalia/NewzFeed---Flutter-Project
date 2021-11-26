@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Service/Auth_Service.dart';
 
 import 'package:flutter_application_1/pages/news.dart';
 import 'package:flutter_application_1/pages/article_model.dart';
+import 'package:flutter_application_1/utils/routes.dart';
 
 import 'Article.dart';
 
@@ -31,10 +33,19 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  AuthClass authClass = AuthClass();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              icon: Icon(Icons.logout, color: Colors.white),
+              onPressed: () async {
+                await authClass.logout();
+                Navigator.pushNamed(context, MyRoutes.signupRoute);
+              })
+        ],
         backgroundColor: Colors.blue,
         centerTitle: true,
         elevation: 0.0,

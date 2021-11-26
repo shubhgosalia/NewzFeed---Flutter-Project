@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Service/Auth_Service.dart';
 import 'package:flutter_application_1/pages/bottom_nav.dart';
 import 'package:flutter_application_1/pages/category_list.dart';
 import 'package:flutter_application_1/pages/category_page1.dart';
@@ -25,16 +26,35 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  //firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  Widget currentPage = StartPage();
+  AuthClass authClass = AuthClass();
+
+  @override
+  void initState() {
+    super.initState();
+    checkLogin();
+  }
+
+  void checkLogin() async {
+    String? token = await authClass.getToken();
+    if (token != null) {
+      setState(() {
+        currentPage = HomePage();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: currentPage,
       theme: ThemeData(
           primarySwatch: Colors.lightBlue,
           fontFamily: GoogleFonts.lato().fontFamily),
       debugShowCheckedModeBanner: false,
       //we can change the initial route anytime
-      initialRoute: "/start",
+      // initialRoute: "/start",
       routes: {
         MyRoutes.signupRoute: (context) => SignupPage(),
         MyRoutes.loginRoute: (context) => LoginPage(),

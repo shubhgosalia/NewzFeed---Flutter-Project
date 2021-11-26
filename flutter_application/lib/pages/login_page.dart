@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Service/Auth_Service.dart';
+import 'package:flutter_application_1/pages/profile_page.dart';
 import 'package:flutter_application_1/utils/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -106,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Username/Email cannot be empty";
+                        return "Email cannot be empty";
                       }
                       return null;
                     },

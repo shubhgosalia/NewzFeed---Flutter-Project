@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/routes.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthClass {
   GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -14,7 +15,7 @@ class AuthClass {
     ],
   );
   FirebaseAuth auth = FirebaseAuth.instance;
-  // final storage = new FlutterSecureStorage();
+  final storage = new FlutterSecureStorage();
 
   Future<void> googleSignIn(BuildContext context) async {
     try {
@@ -30,7 +31,7 @@ class AuthClass {
         try {
           UserCredential userCredential =
               await auth.signInWithCredential(credential);
-          // storeTokenAndData(userCredential);
+          storeTokenAndData(userCredential);
           Navigator.pushNamed(context, MyRoutes.homeRoute);
         } catch (e) {
           final snackbar = SnackBar(content: Text(e.toString()));
@@ -56,4 +57,22 @@ class AuthClass {
   // Future<String?> getToken() async {
   // return await storage.read(key: "token");
   //}
+  Future<void> storeTokenAndData(UserCredential userCredential) async {
+    await storage.write(
+        key: "token", value: userCredential.credential?.token.toString());
+    await storage.write(
+        key: "UserCredential", value: userCredential.toString());
+  }
+
+  Future<String?> getToken() async {
+    return await storage.read(key: "token");
+  }
+
+  Future<void> logout() async {
+    try {
+      await _googleSignIn.signOut();
+      await auth.signOut();
+      await storage.delete(key: "token");
+    } catch (e) {}
+  }
 }
