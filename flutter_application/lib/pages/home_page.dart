@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Service/Auth_Service.dart';
 
@@ -119,7 +121,9 @@ class BlogItems extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(18),
                       topRight: Radius.circular(18)),
-                  child: Image.network(imageUrl)),
+                  child: imageUrl == null
+                      ? Placeholder()
+                      : Image.network(imageUrl)),
               SizedBox(height: 5),
               Text(
                 title,
