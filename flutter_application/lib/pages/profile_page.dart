@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
@@ -10,23 +12,85 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //we will discuss and do it once DB is done
 
 class ProfilePage extends StatefulWidget {
+  //ProfilePage(String? data, {String email});
   @override
   MapScreenState createState() => MapScreenState();
 }
+
+//class LoginWidgetArguments {
+// final String myEmail;
+
+// LoginWidgetArguments(this.myEmail);
+//}
 
 class MapScreenState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
+  late String myEmail;
+  late String myMobile;
+  late String myPincode;
+  late String myState;
+
+  //MapScreenState() {
+  // myEmail = "";
+  // }
 
   @override
   void initState() {
     super.initState();
+    _fetch().whenComplete(() {
+      setState(() {});
+    });
+    _getuserdetails().whenComplete(() {
+      setState(() {});
+    });
+    //getCurrentUser();
   }
+
+  //final FirebaseAuth _auth = FirebaseAuth.instance;
+  //var uemail;
+
+  //getCurrentUser() async {
+  // final User user = await _auth.currentUser!;
+  // uemail = user.email;
+  // }
 
   TextEditingController _mobController = TextEditingController();
   TextEditingController _pinController = TextEditingController();
   TextEditingController _stateController = TextEditingController();
+
+  _fetch() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser!;
+    await FirebaseFirestore.instance
+        .collection('UserData')
+        .doc(firebaseUser.uid)
+        .get()
+        .then((ds) {
+      myEmail = ds.data()?['email'];
+      print(myEmail);
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  _getuserdetails() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser!;
+    await FirebaseFirestore.instance
+        .collection('Profile')
+        .doc(firebaseUser.uid)
+        .get()
+        .then((ds) {
+      myMobile = ds.data()?['Mobile'];
+      myPincode = ds.data()?['Pincode'];
+      myState = ds.data()?['State'];
+      print(myMobile);
+      print(myPincode);
+      print(myState);
+    }).catchError((e) {
+      print(e);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +225,7 @@ class MapScreenState extends State<ProfilePage>
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               new Flexible(
-                                child: new TextField(
+                                child: new TextFormField(
                                   decoration: const InputDecoration(
                                     hintText: "Enter Username",
                                   ),
@@ -198,7 +262,9 @@ class MapScreenState extends State<ProfilePage>
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               new Flexible(
-                                child: new TextField(
+                                child: new TextFormField(
+                                  //Navigator.pop(context);
+                                  initialValue: myEmail,
                                   decoration: const InputDecoration(
                                       hintText: "Enter Email ID"),
                                   enabled: !_status,
@@ -233,7 +299,8 @@ class MapScreenState extends State<ProfilePage>
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               new Flexible(
-                                child: new TextField(
+                                child: new TextFormField(
+                                  //initialValue: myMobile,
                                   controller: _mobController,
                                   decoration: const InputDecoration(
                                       hintText: "Enter Mobile Number"),
@@ -283,7 +350,8 @@ class MapScreenState extends State<ProfilePage>
                               Flexible(
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 10.0),
-                                  child: new TextField(
+                                  child: new TextFormField(
+                                    //initialValue: myPincode,
                                     controller: _pinController,
                                     decoration: const InputDecoration(
                                         hintText: "Enter Pin Code"),
@@ -293,7 +361,8 @@ class MapScreenState extends State<ProfilePage>
                                 flex: 2,
                               ),
                               Flexible(
-                                child: new TextField(
+                                child: new TextFormField(
+                                  //initialValue: myState,
                                   controller: _stateController,
                                   decoration: const InputDecoration(
                                       hintText: "Enter State"),
@@ -335,14 +404,27 @@ class MapScreenState extends State<ProfilePage>
               child: Container(
                   child: new RaisedButton(
                 child: InkWell(
-                    onTap: () {
-                      FirebaseFirestore.instance
-                          .collection("User Profile")
-                          .add({
-                        "Mobile No.": _mobController.text,
-                        "Pincode:": _pinController.text,
-                        "State": _stateController.text
+                    onTap: () async {
+                      final FirebaseAuth _auth = FirebaseAuth.instance;
+                      final FirebaseFirestore _firestore =
+                          FirebaseFirestore.instance;
+
+                      User user = await _auth.currentUser!;
+                      DocumentReference ref =
+                          _firestore.collection('Profile').doc(user.uid);
+                      ref.set({
+                        'Mobile': _mobController.text,
+                        'Pincode': _pinController.text,
+                        'State': _stateController.text
                       });
+
+                      //FirebaseFirestore.instance
+                      //  .collection("User Profile")
+                      //  .add({
+                      // "Mobile No.": _mobController.text,
+                      // "Pincode:": _pinController.text,
+                      //  "State": _stateController.text
+                      //});
                     },
                     child: new Text("Save")),
                 textColor: Colors.white,
@@ -402,4 +484,18 @@ class MapScreenState extends State<ProfilePage>
       },
     );
   }
+
+  //_fetch() async {
+  //  final firebaseUser = await FirebaseAuth.instance.currentUser!;
+  //await FirebaseFirestore.instance
+  //     .collection('UserData')
+  //    .doc(firebaseUser.uid)
+  //    .get()
+  //  .then((ds) {
+  //  myEmail = ds.data()?['email'];
+  //   print(myEmail);
+  // }).catchError((e) {
+  //   print(e);
+  //  });
+  // }
 }

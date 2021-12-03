@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Service/Auth_Service.dart';
@@ -27,6 +28,16 @@ class _LoginPageState extends State<LoginPage> {
       firebase_auth.UserCredential userCredential =
           await firebaseAuth.signInWithEmailAndPassword(
               email: _emailController.text, password: _passwordController.text);
+
+      //final data = Data(email: _emailController.text);
+      //Navigator.push(context,
+      //   MaterialPageRoute(builder: (context) => ProfilePage(data: data)));
+      //var currentUser = FirebaseAuth.instance.currentUser;
+
+      //if (currentUser != null) {
+      // print(currentUser.uid);
+      //}
+
       print(userCredential.user?.email);
       setState(() {
         circular = false;

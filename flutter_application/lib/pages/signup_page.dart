@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Service/Auth_Service.dart';
@@ -16,22 +17,35 @@ class _SignupPageState extends State<SignupPage> {
   firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+
   bool circular = false;
   AuthClass authClass = AuthClass();
 
   final _formKey = GlobalKey<FormState>();
 
-  moveToHome(BuildContext context) async {
+  moveToHome(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       setState(() {
         circular = true;
       });
       try {
-        firebase_auth.UserCredential userCredential =
-            await firebaseAuth.createUserWithEmailAndPassword(
+        firebaseAuth
+            .createUserWithEmailAndPassword(
                 email: _emailController.text,
-                password: _passwordController.text);
-        print(userCredential.user?.email);
+                password: _passwordController.text)
+            .then((value) {
+          FirebaseFirestore.instance
+              .collection('UserData')
+              .doc(value.user?.uid)
+              .set({"email": value.user?.email, "uid": value.user?.uid});
+        });
+
+        //FirebaseFirestore.instance.collection("users").add({
+        //  "email.": _emailController.text,
+        // "username:": _usernameController.text,
+        //});
+
         setState(() {
           circular = false;
         });
@@ -124,6 +138,7 @@ class _SignupPageState extends State<SignupPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: _usernameController,
                     decoration: InputDecoration(
                       hintText: "Enter username",
                       labelText: "Username",
