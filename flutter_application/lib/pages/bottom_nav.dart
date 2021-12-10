@@ -2,14 +2,9 @@ import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Service/Auth_Service.dart';
 import 'package:flutter_application_1/pages/category_list.dart';
-import 'package:flutter_application_1/pages/category_page1.dart';
-import 'package:flutter_application_1/pages/categorypage2.dart';
+import 'package:flutter_application_1/pages/category_page.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
-import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/pages/profile_page.dart';
-import 'package:flutter_application_1/pages/signup_page.dart';
-import 'package:flutter_application_1/utils/routes.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 //Bottom nav bar
 //Only Home and account works for now will add category and list in this week
