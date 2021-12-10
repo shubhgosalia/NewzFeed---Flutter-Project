@@ -25,8 +25,17 @@ class _ArticleState extends State<Article> {
             onPressed: () {
               Navigator.pop(context);
             }),
-        title: Text('NEWZ FEED',
-            style: TextStyle(fontSize: 25, color: Colors.blue)),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/newzfeed_logoooo_new.png',
+              fit: BoxFit.contain,
+              height: 42,
+            ),
+            Container(padding: const EdgeInsets.all(8.0), child: Text(''))
+          ],
+        ),
       ),
       body: Container(
         child: WebView(

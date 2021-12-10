@@ -52,6 +52,7 @@ class ArticleScreenState extends State<ArticleScreen> {
     // TODO: implement build
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'flutter news Articles',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(

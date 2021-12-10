@@ -40,11 +40,22 @@ class SourceScreenState extends State<SourceScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Newz feed',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Newz Feed'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/newzfeed_logoooo_new.png',
+                fit: BoxFit.contain,
+                height: 42,
+              ),
+              Container(padding: const EdgeInsets.all(8.0), child: Text(''))
+            ],
+          ),
         ),
         body: Center(
           child: RefreshIndicator(
@@ -81,7 +92,7 @@ class SourceScreenState extends State<SourceScreen> {
                                         width: 100.0,
                                         height: 140.0,
                                         child: Image.asset(
-                                            'assets/images/news.png'),
+                                            'assets/images/news2.png'),
                                       ),
                                       Expanded(
                                         child: Column(
