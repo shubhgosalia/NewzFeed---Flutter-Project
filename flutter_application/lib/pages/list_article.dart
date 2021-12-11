@@ -53,7 +53,7 @@ class ArticleScreenState extends State<ArticleScreen> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'flutter news Articles',
+      title: 'NEWZ FEED',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
         appBar: AppBar(

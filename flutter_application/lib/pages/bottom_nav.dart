@@ -1,8 +1,8 @@
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Service/Auth_Service.dart';
+import 'package:flutter_application_1/pages/CategoriesScreen.dart';
 import 'package:flutter_application_1/pages/category_list.dart';
-import 'package:flutter_application_1/pages/category_page.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/pages/profile_page.dart';
 
@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         return SourceScreen();
       case 2:
-        return signin1();
+        return CategoriesScreen();
       case 3:
         return ProfilePage();
 
