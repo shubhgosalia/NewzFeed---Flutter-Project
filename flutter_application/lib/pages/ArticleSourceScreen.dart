@@ -196,7 +196,7 @@ class _ArticleSourceScreenState extends State<ArticleSourceScreen> {
                       new Icon(Icons.chrome_reader_mode,
                           color: Colors.grey, size: 60.0),
                       new Text(
-                        "No articles saved",
+                        "NO ARTICLE TO DISPLAY",
                         style:
                             new TextStyle(fontSize: 24.0, color: Colors.grey),
                       ),
