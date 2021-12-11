@@ -98,7 +98,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           ),
                         ],
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (_) =>
+                                    new ArticleSourceScreen.ArticleSourceScreen(
+                                      sourceId: categoriesList.list[index]
+                                          ['id'],
+                                      sourceName: categoriesList.list[index]
+                                          ["name"],
+                                      isCategory: true,
+                                    )));
+                      },
                     ),
                   ),
                 );
