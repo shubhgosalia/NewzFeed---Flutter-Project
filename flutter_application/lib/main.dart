@@ -54,7 +54,6 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.lightBlue,
           fontFamily: GoogleFonts.lato().fontFamily),
       debugShowCheckedModeBanner: false,
-      //we can change the initial route anytime
       // initialRoute: "/start",
       routes: {
         MyRoutes.signupRoute: (context) => SignupPage(),
