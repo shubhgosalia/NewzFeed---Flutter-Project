@@ -19,10 +19,12 @@ class AuthClass {
 
   Future<void> googleSignIn(BuildContext context) async {
     try {
+      //will open the popup
       GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
       if (googleSignInAccount != null) {
         GoogleSignInAuthentication googleSignInAuthentication =
             await googleSignInAccount.authentication;
+        //will get the gmail credentials
         AuthCredential credential = GoogleAuthProvider.credential(
           idToken: googleSignInAuthentication.idToken,
           accessToken: googleSignInAuthentication.accessToken,

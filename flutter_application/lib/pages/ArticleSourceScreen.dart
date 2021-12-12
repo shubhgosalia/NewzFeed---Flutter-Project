@@ -10,8 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 class ArticleSourceScreen extends StatefulWidget {
   ArticleSourceScreen(
       {Key? key,
-      this.sourceId = "techcrunch",
-      this.sourceName = "TechCrunch",
+      this.sourceId = "NewzFeed",
+      this.sourceName = "NewzFeed",
       this.isCategory: false})
       : super(key: key);
   final sourceId;
